@@ -1,0 +1,26 @@
+body{
+    background: black;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+header{
+    background: red;
+    flex-basis: 100%;
+    height: 20vh;
+    justify-self: flex-start;
+}
+main{
+    display: flex;
+    flex-direction: row;
+    flex-basis: 100%;
+    height: 80vh;
+}
+#left{
+    background: blue;
+    flex-basis: 75%;
+}
+#right{
+    background: green;
+    flex-basis: 25%;
+}
