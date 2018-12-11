@@ -69,6 +69,9 @@ $(document).ready(function () {
             console.log(response);
             for (var i = 0; i < response.data.length; i++) {
                 console.log(response.data[i].images.fixed_height.url, response.data[i].rating);
+                // new div
+                newDiv = $("<div>");
+                newDiv.addClass("gifDiv");
                 // create img element for gif
                 newImg = $("<img>");
                 // set src to a still of gif
@@ -84,7 +87,8 @@ $(document).ready(function () {
                 // set text of p
                 newP.text("Rating: "+(response.data[i].rating).toUpperCase());
                 // prepend images
-                $("#left").prepend(newImg).prepend(newP);
+                newDiv.append(newImg).prepend(newP);
+                $("#left").prepend(newDiv);
                 // prepend rating
             }
         })
