@@ -31,9 +31,6 @@ p{
     margin-left: 0;
     padding-left: 0;
 }
-div{
-    padding-left: .25rem;
-}
 .button{
     color: #ffffff;
     font-family: 'Oxygen', sans-serif;
@@ -56,6 +53,8 @@ div{
 .gifDiv{
     height:fit-content;
     width: fit-content;
+    padding-left: .25rem;
+    padding-right: .25rem;
 }
 #left{
     color: #00A896;
@@ -80,7 +79,7 @@ div{
     font-family: "oxygen", sans-serif;
     display: flex;
     flex-flow: column wrap;
-    align-self: flex-end;
+    align-self: flex-start;
     width: 80%;
     padding-top: .5rem;
 }
@@ -97,4 +96,32 @@ div{
     color: white;
 
 }
-media-query
+@media screen and (max-width: 1030px) {
+    main{
+        flex-flow: column-reverse nowrap; 
+    }
+    #search-form{
+        width: 100%;
+        justify-content: space-around;
+        justify-self: flex-start;
+        flex-flow: row;
+        align-items: baseline;
+        border-top: solid #02C39A 1px;
+        border-bottom: solid #02C39A 1px;
+    }
+    #gif-search{
+        flex-grow: 1;
+        max-width: 50vw;
+    }
+    .button{
+        font-size: 24px;
+        margin: 8px;
+    }
+    .form-item{
+        font-size: 20px;
+        margin: 2vh 1vw;
+    }
+    .col{
+        width: 100%;
+    }
+}

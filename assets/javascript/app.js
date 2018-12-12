@@ -1,21 +1,21 @@
 $(document).ready(function () {
     giphy = {
 
-        animalArray: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "giraffe", "wolf", "lion", "tiger", "crocodile", "penguin", "possum", "squid", "falcon"],
+        topics: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "giraffe", "wolf", "lion", "tiger", "crocodile", "penguin", "possum", "falcon", "squid"],
 
         createButtons: function () {
             $("#buttonArea").empty();
-            for (var i = 0; i < giphy.animalArray.length; i++) {
+            for (var i = 0; i < giphy.topics.length; i++) {
                 //  create new button
                 var newButton = $("<button>");
                 // animal name
-                var newAnimal = giphy.animalArray[i];
-                //  animalButton class
-                newButton.addClass("animalButton button");
+                var newTopic = giphy.topics[i];
+                //  topicButton class
+                newButton.addClass("topicButton button");
                 //  data is set to the animal name
-                newButton.attr("data-name", newAnimal);
+                newButton.attr("data-name", newTopic);
                 //  text set to animal name
-                newButton.text(newAnimal);
+                newButton.text(newTopic);
                 //  button appended to button area
                 $("#buttonArea").append(newButton);
             }
@@ -25,31 +25,35 @@ $(document).ready(function () {
     // adds the first three buttons
     giphy.createButtons();
 
-    // event for adding new buttons
+    // event for adding new buttons from input bar
     $("body").on("click", "#addAnimal", function (event) {
         // prevents submit from submitting
         event.preventDefault();
-        // log array
-        console.log(giphy.animalArray);
-        // set animal name to search value
-        var animalName = $("#gif-search").val().trim();
+        // set variable to search value
+        let inputVal = $("#gif-search").val().trim();
         // checks for blank searches
-        if (animalName.length === 0) {
-            console.log("blank search")
-        } else {
-            console.log(animalName);
-            // add search val to animal array
-            giphy.animalArray.push(animalName);
+        if (inputVal.length === 0) {
+            console.log("blank search");
+        } 
+        // check if input is already in array
+        else if (giphy.topics.indexOf(inputVal)!= -1){
+            console.log("button already exists");
+        }
+        else {
+            console.log(inputVal);
+            // add search val to topic array
+            giphy.topics.push(inputVal);
             // create buttons
             giphy.createButtons();
         }
-
+        // clear search bar
+        $("#gif-search").val(null);
     });
     // event for adding gifs
-    $("header").on("click", ".animalButton", function () {
+    $("header").on("click", ".topicButton", function () {
         console.log(this, $(this).attr("data-name"));
         // get "data-name" of button (same as text on button)
-        name = $(this).attr("data-name");
+        name = $(this).data("name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=UDbW5pMSEMGrWLs5VtOojxU0gy7XVEi4&q="
             // search query
             + name
