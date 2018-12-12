@@ -1,17 +1,17 @@
 $(document).ready(function () {
-    object = {
+    giphy = {
 
-        animalArray: ["dog", "cat", "bird"],
+        animalArray: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "giraffe", "wolf", "lion", "tiger", "crocodile", "penguin", "possum", "squid", "falcon"],
 
         createButtons: function () {
             $("#buttonArea").empty();
-            for (var i = 0; i < object.animalArray.length; i++) {
+            for (var i = 0; i < giphy.animalArray.length; i++) {
                 //  create new button
                 var newButton = $("<button>");
                 // animal name
-                var newAnimal = object.animalArray[i];
+                var newAnimal = giphy.animalArray[i];
                 //  animalButton class
-                newButton.addClass("animalButton");
+                newButton.addClass("animalButton button");
                 //  data is set to the animal name
                 newButton.attr("data-name", newAnimal);
                 //  text set to animal name
@@ -23,14 +23,14 @@ $(document).ready(function () {
     };
 
     // adds the first three buttons
-    object.createButtons();
+    giphy.createButtons();
 
     // event for adding new buttons
     $("body").on("click", "#addAnimal", function (event) {
         // prevents submit from submitting
         event.preventDefault();
         // log array
-        console.log(object.animalArray);
+        console.log(giphy.animalArray);
         // set animal name to search value
         var animalName = $("#gif-search").val().trim();
         // checks for blank searches
@@ -39,9 +39,9 @@ $(document).ready(function () {
         } else {
             console.log(animalName);
             // add search val to animal array
-            object.animalArray.push(animalName);
+            giphy.animalArray.push(animalName);
             // create buttons
-            object.createButtons();
+            giphy.createButtons();
         }
 
     });
@@ -57,8 +57,8 @@ $(document).ready(function () {
             + "&limit=10"
             + "&offset=0"
             // rating
-            // + "&rating="
-            // + rating
+            + "&rating="
+            + "PG-13"
             // language
             + "&lang=en";
         // ajax request

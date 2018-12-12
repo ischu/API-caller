@@ -1,46 +1,100 @@
 body{
-    background: white;
+    background: #D1D3D4;
     display: flex;
     flex-direction: column;
     height: 100%;
-    color: black;
+    color: #ffffff;
+    font-family: 'Lato', sans-serif;
 }
 header{
     display: flex;
-    background: red;
+    background: #028090;
     flex-basis: 100%;
-    height: 20vh;
+    min-height: 20vh;
+    max-height: fit-content;
     justify-self: flex-start;
     justify-content: flex-start;
-    align-items: center
+    align-content: space-around;
+    flex-wrap: wrap;
 }
 main{
+    background: #05668D;
     display: flex;
     flex-direction: row;
     flex-basis: 100%;
-    height: 80vh;
+    min-height: 80vh;
+    max-height: fit-content;
 }
-button{
-    max-width: fit-content;
-    max-height: 1.5rem;
+p{
+    margin: .5rem;
+    padding: .25rem;
+    margin-left: 0;
+    padding-left: 0;
 }
+div{
+    padding-left: .25rem;
+}
+.button{
+    color: #ffffff;
+    font-family: 'Oxygen', sans-serif;
+    width: fit-content;
+    height: fit-content;
+    margin: 1rem;
+    border-radius: 16px;
+    background-color:#00A896;
+    cursor: pointer;
+    text-align: center;
+    border-top: solid #02C39A 1px;
+    border-left: solid #02C39A 2px;
+    border-bottom: none;
+    border-right: solid #02C39A 2px;
+    display: inline-block;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
 .gifDiv{
     height:fit-content;
     width: fit-content;
 }
 #left{
+    color: #00A896;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-content: flex-start;
-    background: blue;
     flex-basis: 75%;
+    min-height: 80vh;
+    height: fit-content;
 }
 #right{
     display: flex;
     flex-flow: column wrap;
-    background: green;
     flex-basis: 25%;
     justify-content: flex-start;
-    align-items: space-between;
+    align-content: flex-end;
+    max-height: fit-content;
 }
+/* form styling */
+#search-form{
+    font-family: "oxygen", sans-serif;
+    display: flex;
+    flex-flow: column wrap;
+    align-self: flex-end;
+    width: 80%;
+    padding-top: .5rem;
+}
+.form-item{
+    margin: .5rem;
+    font-size: 20px;
+}
+/* label{
+    color: #02C39A;
+} */
+#gif-search{
+    border: solid #02C39A 1px;
+    background: #028090;
+    color: white;
+
+}
+media-query
