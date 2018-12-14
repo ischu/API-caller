@@ -1,15 +1,42 @@
 $(document).ready(function () {
-    giphy = {
 
-        topics: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "giraffe", "wolf", "lion", "tiger", "crocodile", "penguin", "possum", "falcon", "squid"],
+    main = {
+        giphy: {
+            endPoint: "https://api.giphy.com/v1/gifs/search?",
+            apiKey: "api_key=UDbW5pMSEMGrWLs5VtOojxU0gy7XVEi4",
+            // query: "&q=",
+            limit: "10",
+            rating: "PG-13",
+            queryURL: function (q) {
+                url = giphy.endPoint + giphy.apiKey + "&q=" + q + "&offset=0" + "&limit=" + giphy.limit + "&rating=" + giphy.rating + "&lang=en";
+                return url;
+            },
+            animals: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "elephant", "tiger", "crocodile", "penguin", "possum", "squid"],
+        },
+        ombd : {
+            endPoint: "http://www.omdbapi.com/?",
+            apiKey: "apikey=1fd69c48",
+            title: null,
+            date: null,
+            actors: null,
+        },
+        weather: {
+            apiKey: "&APPID=dd5025ef1194ce2c2d44bb1093f81102",
 
+        },
+        // empty array used for creating buttons
+        topics: [],
+        setTopic: function (array) {
+            console.log(array);
+            main.topics = array;
+        },
         createButtons: function () {
             $("#buttonArea").empty();
-            for (var i = 0; i < giphy.topics.length; i++) {
+            for (let i = 0; i < main.topics.length; i++) {
                 //  create new button
                 var newButton = $("<button>");
                 // animal name
-                var newTopic = giphy.topics[i];
+                var newTopic = main.topics[i];
                 //  topicButton class
                 newButton.addClass("topicButton button");
                 //  data is set to the animal name
@@ -19,14 +46,19 @@ $(document).ready(function () {
                 //  button appended to button area
                 $("#buttonArea").append(newButton);
             }
+        },
+        clearTopics: function () {
+            $("#buttonArea").empty();
+            main.topics = [];
         }
     };
-
+    // set topic array
+    main.setTopic(giphy.animals);
     // adds the first three buttons
-    giphy.createButtons();
+    main.createButtons();
 
     // event for adding new buttons from input bar
-    $("body").on("click", "#addAnimal", function (event) {
+    $("body").on("click", "#addButton", function (event) {
         // prevents submit from submitting
         event.preventDefault();
         // set variable to search value
@@ -34,40 +66,35 @@ $(document).ready(function () {
         // checks for blank searches
         if (inputVal.length === 0) {
             console.log("blank search");
-        } 
+        }
         // check if input is already in array
-        else if (giphy.topics.indexOf(inputVal)!= -1){
+        else if (main.topics.indexOf(inputVal) != -1) {
             console.log("button already exists");
         }
         else {
             console.log(inputVal);
             // add search val to topic array
-            giphy.topics.push(inputVal);
+            main.topics.push(inputVal);
             // create buttons
-            giphy.createButtons();
+            main.createButtons();
         }
         // clear search bar
         $("#gif-search").val(null);
     });
+    // for clearing buttons
+    $("body").on("click", "#clearButton", function (event) {
+        // prevents submit from submitting
+        event.preventDefault();
+        // clears buttons and topics array
+        main.clearTopics();
+    });
     // event for adding gifs
     $("header").on("click", ".topicButton", function () {
-        console.log(this, $(this).attr("data-name"));
-        // get "data-name" of button (same as text on button)
-        name = $(this).data("name");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=UDbW5pMSEMGrWLs5VtOojxU0gy7XVEi4&q="
-            // search query
-            + name
-            // number of results returned
-            + "&limit=10"
-            + "&offset=0"
-            // rating
-            + "&rating="
-            + "PG-13"
-            // language
-            + "&lang=en";
+        // get "data-name" of button (matches text on button)
+        let name = $(this).data("name");
         // ajax request
         $.ajax({
-            url: queryURL,
+            url: giphy.queryURL(name),
             method: "GET"
         }).then(function (response) {
             console.log(response);
@@ -89,14 +116,14 @@ $(document).ready(function () {
                 // create p element for rating
                 newP = $("<p>");
                 // set text of p
-                newP.text("Rating: "+(response.data[i].rating).toUpperCase());
+                newP.text("Rating: " + (response.data[i].rating).toUpperCase());
                 // prepend images
-                newDiv.append(newImg).prepend(newP);
+                newDiv.append(newImg);
+                newImg.before(newP);
                 $("#left").prepend(newDiv);
-                // prepend rating
             }
-        })
-    })
+        });
+    });
     // event for playing/pausing gifs
     $("body").on("click", ".gif", function () {
         console.log("gif clicked");
@@ -113,5 +140,4 @@ $(document).ready(function () {
             $(this).attr("state", "still");
         }
     });
-
 });
