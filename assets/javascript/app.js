@@ -8,7 +8,7 @@ $(document).ready(function () {
             limit: "10",
             rating: "PG-13",
             queryURL: function (q) {
-                url = giphy.endPoint + giphy.apiKey + "&q=" + q + "&offset=0" + "&limit=" + giphy.limit + "&rating=" + giphy.rating + "&lang=en";
+                url = this.endPoint + this.apiKey + "&q=" + q + "&offset=0" + "&limit=" + this.limit + "&rating=" + this.rating + "&lang=en";
                 return url;
             },
             animals: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "elephant", "tiger", "crocodile", "penguin", "possum", "squid"],
@@ -21,7 +21,12 @@ $(document).ready(function () {
             actors: null,
         },
         weather: {
+            endPoint: "api.openweathermap.org/data/2.5/?",
             apiKey: "&APPID=dd5025ef1194ce2c2d44bb1093f81102",
+            queryURL: function (q) {
+                url = this.endPoint+"q=" + q + this.apiKey;
+                return url;
+            },
 
         },
         // empty array used for creating buttons
@@ -53,10 +58,10 @@ $(document).ready(function () {
         }
     };
     // set topic array
-    main.setTopic(giphy.animals);
+    main.setTopic(main.giphy.animals);
     // adds the first three buttons
     main.createButtons();
-
+    console.log(main.weather.queryURL("detroit"));
     // event for adding new buttons from input bar
     $("body").on("click", "#addButton", function (event) {
         // prevents submit from submitting
@@ -94,7 +99,7 @@ $(document).ready(function () {
         let name = $(this).data("name");
         // ajax request
         $.ajax({
-            url: giphy.queryURL(name),
+            url: main.giphy.queryURL(name),
             method: "GET"
         }).then(function (response) {
             console.log(response);
