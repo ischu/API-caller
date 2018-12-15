@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     main = {
         giphy: {
             endPoint: "https://api.giphy.com/v1/gifs/search?",
@@ -53,20 +52,19 @@ $(document).ready(function () {
                 $("#buttonArea").append(newButton);
             }
         },
-        clearTopics: function () {
-            $("#buttonArea").empty();
+        clearGifs: function () {
             $("#left").empty();
-            main.topics = [];
-            main.giphy.offset = 0;
         }
     };
+
     // set topic array
     main.setTopic(main.giphy.animals);
-    // adds the first three buttons
+    // adds the first buttons
     main.createButtons();
 
     // event for adding new buttons from input bar
-    $("body").on("click", "#addButton", function () {
+    $("body").on("click", "#addButton", function (event) {
+        event.preventDefault();
 
         // set variable to search value
         let inputVal = $("#gif-search").val().trim();
@@ -92,11 +90,11 @@ $(document).ready(function () {
     $("body").on("click", "#clearButton", function (event) {
         // prevents submit from submitting
         event.preventDefault();
-        // clears buttons and topics array
-        main.clearTopics();
+        main.clearGifs();
     });
     // event for adding gifs
-    $("header").on("click", ".topicButton", function () {
+    $("body").on("click", ".topicButton", function () {
+        console.log("clicked");
         // get "data-name" of button (matches text on button)
         let name = $(this).data("name");
         // ajax request
@@ -150,4 +148,5 @@ $(document).ready(function () {
             $(this).attr("state", "still");
         }
     });
+
 });
