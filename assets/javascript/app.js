@@ -7,28 +7,29 @@ $(document).ready(function () {
             // query: "&q=",
             limit: "10",
             rating: "PG-13",
+            offset: 0,
             queryURL: function (q) {
-                url = this.endPoint + this.apiKey + "&q=" + q + "&offset=0" + "&limit=" + this.limit + "&rating=" + this.rating + "&lang=en";
+                url = this.endPoint + this.apiKey + "&q=" + q + "&offset=" + String(this.offset) + "&limit=" + this.limit + "&rating=" + this.rating + "&lang=en";
                 return url;
             },
-            animals: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "elephant", "tiger", "crocodile", "penguin", "possum", "squid"],
+            animals: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "elephant", "tiger", "alligator", "penguin", "possum", "squid"],
         },
-        ombd : {
-            endPoint: "http://www.omdbapi.com/?",
-            apiKey: "apikey=1fd69c48",
-            title: null,
-            date: null,
-            actors: null,
-        },
-        weather: {
-            endPoint: "api.openweathermap.org/data/2.5/?",
-            apiKey: "&APPID=dd5025ef1194ce2c2d44bb1093f81102",
-            queryURL: function (q) {
-                url = this.endPoint+"q=" + q + this.apiKey;
-                return url;
-            },
+        // ombd : {
+        //     endPoint: "http://www.omdbapi.com/?",
+        //     apiKey: "apikey=1fd69c48",
+        //     title: null,
+        //     date: null,
+        //     actors: null,
+        // },
+        // weather: {
+        //     endPoint: "api.openweathermap.org/data/2.5/?",
+        //     apiKey: "&APPID=dd5025ef1194ce2c2d44bb1093f81102",
+        //     queryURL: function (q) {
+        //         url = this.endPoint+"q=" + q + this.apiKey;
+        //         return url;
+        //     },
 
-        },
+        // },
         // empty array used for creating buttons
         topics: [],
         setTopic: function (array) {
@@ -41,7 +42,7 @@ $(document).ready(function () {
                 //  create new button
                 var newButton = $("<button>");
                 // animal name
-                var newTopic = main.topics[i];
+                var newTopic = main.topics[i].toUpperCase();
                 //  topicButton class
                 newButton.addClass("topicButton button");
                 //  data is set to the animal name
@@ -54,18 +55,19 @@ $(document).ready(function () {
         },
         clearTopics: function () {
             $("#buttonArea").empty();
+            $("#left").empty();
             main.topics = [];
+            main.giphy.offset = 0;
         }
     };
     // set topic array
     main.setTopic(main.giphy.animals);
     // adds the first three buttons
     main.createButtons();
-    console.log(main.weather.queryURL("detroit"));
+
     // event for adding new buttons from input bar
-    $("body").on("click", "#addButton", function (event) {
-        // prevents submit from submitting
-        event.preventDefault();
+    $("body").on("click", "#addButton", function () {
+
         // set variable to search value
         let inputVal = $("#gif-search").val().trim();
         // checks for blank searches
@@ -103,6 +105,9 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response);
+            // increase offset so that a repeat button press will add new gifs
+            main.giphy.offset = main.giphy.offset + 10;
+
             for (var i = 0; i < response.data.length; i++) {
                 console.log(response.data[i].images.fixed_height.url, response.data[i].rating);
                 // new div

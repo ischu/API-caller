@@ -10,19 +10,20 @@ header{
     display: flex;
     background: #028090;
     flex-basis: 100%;
-    min-height: 20vh;
+    min-height: 10vh;
     max-height: fit-content;
     justify-self: flex-start;
     justify-content: flex-start;
-    align-content: space-around;
+    align-items: space-around;
     flex-wrap: wrap;
+    padding-top: 1vh;
 }
 main{
     background: #05668D;
     display: flex;
     flex-direction: row;
     flex-basis: 100%;
-    min-height: 80vh;
+    min-height: 90vh;
     max-height: fit-content;
 }
 p{
@@ -49,6 +50,12 @@ p{
     font-size: 16px;
     line-height: 20px;
     padding: 5px 10px;
+}
+.button:active,
+.button:focus{
+    box-shadow: none;
+    background-image: none;
+    outline: 0;
 }
 
 .gifDiv{
@@ -80,14 +87,19 @@ p{
 #search-form{
     font-family: "oxygen", sans-serif;
     display: flex;
-    flex-flow: column wrap;
+    /* flex-flow: column wrap; */
+    flex-wrap: wrap;
     justify-self: flex-end;
     width: 80%;
-    padding-top: .5rem;
+    margin-top: 5vh;
 }
 .form-item{
     margin: .5rem;
     font-size: 20px;
+    flex-grow: 1;
+}
+.form-button{
+    flex-basis: 20%;
 }
 /* label{
     color: #02C39A;
@@ -104,7 +116,7 @@ p{
     }
     #search-form{
         width: 100%;
-        justify-content: space-around;
+        justify-content: space-between;
         justify-self: flex-start;
         flex-flow: row;
         align-items: baseline;
@@ -116,7 +128,7 @@ p{
         max-width: 50vw;
     }
     .button{
-        font-size: 24px;
+        font-size: 20px;
         margin: 8px;
     }
     .form-item{
