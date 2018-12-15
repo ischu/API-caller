@@ -11,7 +11,7 @@ $(document).ready(function () {
                 url = this.endPoint + this.apiKey + "&q=" + q + "&offset=" + String(this.offset) + "&limit=" + this.limit + "&rating=" + this.rating + "&lang=en";
                 return url;
             },
-            animals: ["dog", "cat", "bird", "rabbit", "skunk", "frog", "raccoon", "elephant", "tiger", "alligator", "penguin", "possum", "squid"],
+            animals: ["dog", "cat", "skunk", "frog", "elephant", "tiger", "penguin", "possum", "squid"],
         },
         // ombd : {
         //     endPoint: "http://www.omdbapi.com/?",
